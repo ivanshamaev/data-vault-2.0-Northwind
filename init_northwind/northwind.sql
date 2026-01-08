@@ -54,8 +54,6 @@ SET default_with_oids = false;
 -- =====================================================
 
 -- drop tables
-DROP TABLE IF EXISTS customer_customer_demo;
-DROP TABLE IF EXISTS customer_demographics;
 DROP TABLE IF EXISTS employee_territories;
 DROP TABLE IF EXISTS order_details;
 DROP TABLE IF EXISTS orders;
@@ -79,25 +77,6 @@ CREATE TABLE categories (
     description text,
     picture bytea
 );
-
---
--- Name: customer_customer_demo; Type: TABLE; Schema: northwind; Owner: -; Tablespace: 
---
-
-CREATE TABLE customer_customer_demo (
-    customer_id character varying(5) NOT NULL,
-    customer_type_id character varying(5) NOT NULL
-);
-
---
--- Name: customer_demographics; Type: TABLE; Schema: northwind; Owner: -; Tablespace: 
---
-
-CREATE TABLE customer_demographics (
-    customer_type_id character varying(5) NOT NULL,
-    customer_desc text
-);
-
 
 --
 -- Name: customers; Type: TABLE; Schema: northwind; Owner: -; Tablespace: 
@@ -279,19 +258,6 @@ INSERT INTO categories VALUES (5, 'Grains/Cereals', 'Breads, crackers, pasta, an
 INSERT INTO categories VALUES (6, 'Meat/Poultry', 'Prepared meats', '\x');
 INSERT INTO categories VALUES (7, 'Produce', 'Dried fruit and bean curd', '\x');
 INSERT INTO categories VALUES (8, 'Seafood', 'Seaweed and fish', '\x');
-
-
---
--- Data for Name: customer_customer_demo; Type: TABLE DATA; Schema: northwind; Owner: -
---
-
-
-
---
--- Data for Name: customer_demographics; Type: TABLE DATA; Schema: northwind; Owner: -
---
-
-
 
 --
 -- Data for Name: customers; Type: TABLE DATA; Schema: northwind; Owner: -
@@ -3724,23 +3690,6 @@ INSERT INTO us_states VALUES (51, 'Wyoming', 'WY', 'west');
 ALTER TABLE ONLY categories
     ADD CONSTRAINT pk_categories PRIMARY KEY (category_id);
 
-
---
--- Name: pk_customer_customer_demo; Type: CONSTRAINT; Schema: northwind; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY customer_customer_demo
-    ADD CONSTRAINT pk_customer_customer_demo PRIMARY KEY (customer_id, customer_type_id);
-
-
---
--- Name: pk_customer_demographics; Type: CONSTRAINT; Schema: northwind; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY customer_demographics
-    ADD CONSTRAINT pk_customer_demographics PRIMARY KEY (customer_type_id);
-
-
 --
 -- Name: pk_customers; Type: CONSTRAINT; Schema: northwind; Owner: -; Tablespace: 
 --
@@ -3907,23 +3856,6 @@ ALTER TABLE ONLY employee_territories
 
 ALTER TABLE ONLY employee_territories
     ADD CONSTRAINT fk_employee_territories_employees FOREIGN KEY (employee_id) REFERENCES employees;
-
-
---
--- Name: fk_customer_customer_demo_customer_demographics; Type: Constraint; Schema: -; Owner: -
---
-
-ALTER TABLE ONLY customer_customer_demo
-    ADD CONSTRAINT fk_customer_customer_demo_customer_demographics FOREIGN KEY (customer_type_id) REFERENCES customer_demographics;
-
-
---
--- Name: fk_customer_customer_demo_customers; Type: Constraint; Schema: -; Owner: -
---
-
-ALTER TABLE ONLY customer_customer_demo
-    ADD CONSTRAINT fk_customer_customer_demo_customers FOREIGN KEY (customer_id) REFERENCES customers;
-
 
 --
 -- Name: fk_employees_employees; Type: Constraint; Schema: -; Owner: -
