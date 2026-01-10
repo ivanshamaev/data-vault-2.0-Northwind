@@ -12,7 +12,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_categories;
 CREATE VIEW staging_l2.v_stage_l2_categories AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.categories' AS dv_record_source,
+    'northwind.categories' AS dv_record_source,
     digest(upper(trim(coalesce(category_id::text, '-1'))), 'sha256') AS hk_h_product_category,
     digest(
         concat_ws('|',
@@ -36,7 +36,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_customers;
 CREATE VIEW staging_l2.v_stage_l2_customers AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.customers' AS dv_record_source,
+    'northwind.customers' AS dv_record_source,
     digest(upper(trim(coalesce(customer_id, '-1'))), 'sha256') AS hk_h_customer,
     digest(
         concat_ws('|',
@@ -74,7 +74,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_employees;
 CREATE VIEW staging_l2.v_stage_l2_employees AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.employees' AS dv_record_source,
+    'northwind.employees' AS dv_record_source,
     digest(upper(trim(coalesce(employee_id::text, '-1'))), 'sha256') AS hk_h_employee,
     digest(upper(trim(coalesce(reports_to::text, '-2'))), 'sha256') AS hk_h_employee_manager,
     digest(
@@ -133,7 +133,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_employee_territories;
 CREATE VIEW staging_l2.v_stage_l2_employee_territories AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.employeeterritories' AS dv_record_source,
+    'northwind.employeeterritories' AS dv_record_source,
     digest(upper(trim(coalesce(employee_id::text, '-1'))), 'sha256') AS hk_h_employee,
     digest(upper(trim(coalesce(territory_id, '-1'))), 'sha256') AS hk_h_territory,
     digest(
@@ -155,7 +155,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_order_details;
 CREATE VIEW staging_l2.v_stage_l2_order_details AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.order_details' AS dv_record_source,
+    'northwind.order_details' AS dv_record_source,
     digest(upper(trim(coalesce(order_id::text, '-1'))), 'sha256') AS hk_h_order,
     digest(upper(trim(coalesce(product_id::text, '-1'))), 'sha256') AS hk_h_product,
     digest(
@@ -188,7 +188,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_orders;
 CREATE VIEW staging_l2.v_stage_l2_orders AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.orders' AS dv_record_source,
+    'northwind.orders' AS dv_record_source,
     digest(upper(trim(coalesce(order_id::text, '-1'))), 'sha256') AS hk_h_order,
     digest(upper(trim(coalesce(customer_id, '-1'))), 'sha256') AS hk_h_customer,
     digest(upper(trim(coalesce(employee_id::text, '-1'))), 'sha256') AS hk_h_employee,
@@ -241,7 +241,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_products;
 CREATE VIEW staging_l2.v_stage_l2_products AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.products' AS dv_record_source,
+    'northwind.products' AS dv_record_source,
     digest(upper(trim(coalesce(product_id::text, '-1'))), 'sha256') AS hk_h_product,
     digest(upper(trim(coalesce(supplier_id::text, '-1'))), 'sha256') AS hk_h_supplier,
     digest(upper(trim(coalesce(category_id::text, '-1'))), 'sha256') AS hk_h_product_category,
@@ -291,7 +291,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_region;
 CREATE VIEW staging_l2.v_stage_l2_region AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.region' AS dv_record_source,
+    'northwind.region' AS dv_record_source,
     digest(upper(trim(coalesce(region_id::text, '-1'))), 'sha256') AS hk_h_region,
     digest(trim(coalesce(region_description, '')), 'sha256') AS hd_s_region_staging,
     region_id,
@@ -306,7 +306,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_shippers;
 CREATE VIEW staging_l2.v_stage_l2_shippers AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.shippers' AS dv_record_source,
+    'northwind.shippers' AS dv_record_source,
     digest(upper(trim(coalesce(shipper_id::text, '-1'))), 'sha256') AS hk_h_shipper,
     digest(concat_ws('|', company_name, phone), 'sha256') AS hd_s_shipper_staging,
     shipper_id,
@@ -322,7 +322,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_suppliers;
 CREATE VIEW staging_l2.v_stage_l2_suppliers AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.suppliers' AS dv_record_source,
+    'northwind.suppliers' AS dv_record_source,
     digest(upper(trim(coalesce(supplier_id::text, '-1'))), 'sha256') AS hk_h_supplier,
     digest(
         concat_ws('|',
@@ -362,7 +362,7 @@ DROP VIEW IF EXISTS staging_l2.v_stage_l2_territories;
 CREATE VIEW staging_l2.v_stage_l2_territories AS
 SELECT
     timezone('utc', now()) AS dv_load_datetime,
-    'northwind.dbo.territories' AS dv_record_source,
+    'northwind.territories' AS dv_record_source,
     digest(upper(trim(coalesce(territory_id, '-1'))), 'sha256') AS hk_h_territory,
     digest(upper(trim(coalesce(region_id::text, '-1'))), 'sha256') AS hk_h_region,
     digest(

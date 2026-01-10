@@ -33,8 +33,6 @@ BEGIN;
 
 COMMIT;
 
-select * from staging_l2.l2_categories
-
 -- l2_customers
 
 BEGIN;
